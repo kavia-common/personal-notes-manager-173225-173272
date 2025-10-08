@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ocean Notes (Next.js)
 
-## Getting Started
+A modern personal notes application built with Next.js App Router and TypeScript. Notes are stored in the browser's localStorage — no backend required.
 
-First, run the development server:
+Features
+- Create, view, edit, and delete notes
+- Autosave with debounce and persistent storage via localStorage
+- Real-time search (title and content)
+- Keyboard shortcuts:
+  - Ctrl/Cmd+N — New note
+  - Ctrl/Cmd+S — Save (confirms save; data is already persisted)
+- Ocean Professional theme: blue primary, amber secondary, subtle shadows, rounded corners, gradients
+- Responsive layout with header, sidebar, and editor
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Getting started
+- Development: npm run dev (port 3000)
+- Build: npm run build
+- Start: npm start
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Notes on storage
+- Data is saved to localStorage key ocean-notes. On first run, the app seeds a few examples.
+- If you need to clear everything, open DevTools → Application → Local Storage and delete the ocean-notes entry.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Dependencies
+- No additional runtime dependencies were added beyond Next.js/React/TypeScript (already present).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Implementation details
+- App Router with client components for the main page.
+- Hydration-safe access to localStorage by gating on typeof window !== "undefined".
+- Debounced updates to minimize write frequency.
+- Lightweight toasts implemented with a simple hook and CSS.
 
-## Learn More
+Folder structure
+- src/app/layout.tsx: App metadata and root layout
+- src/app/page.tsx: The main notes UI (header, sidebar, editor)
+- src/app/globals.css: Theme variables and base styles
+- public/favicon.ico: App icon (placeholder)
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Keyboard shortcuts
+- Ctrl/Cmd+N: Create a new note
+- Ctrl/Cmd+S: Save changes (notes already persist automatically; shows a toast)

@@ -1,12 +1,25 @@
 @import "tailwindcss";
 
+/* Ocean Professional Theme */
 :root {
-  --color-primary: #000000;
-  --color-secondary: #FFFFFF;
-  --color-accent: #3B82F6;
-  --color-background: #FFFFFF;
+  --ocean-primary: #2563EB;         /* Blue 600 */
+  --ocean-primary-500: #3B82F6;     /* Blue 500 */
+  --ocean-secondary: #F59E0B;       /* Amber 500 */
+  --ocean-error: #EF4444;           /* Red 500 */
+  --ocean-bg: #f9fafb;              /* Gray 50 */
+  --ocean-surface: #ffffff;         /* White */
+  --ocean-text: #111827;            /* Gray 900 */
+  --ocean-muted: #6B7280;           /* Gray 500 */
+  --ocean-border: #E5E7EB;          /* Gray 200 */
+  --ocean-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
 }
 
+/* Gradients */
+:root {
+  --ocean-gradient: linear-gradient(180deg, rgba(59,130,246,0.10) 0%, rgba(249,250,251,1) 100%);
+}
+
+/* Base reset */
 * {
   box-sizing: border-box;
   padding: 0;
@@ -17,10 +30,167 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  background-color: var(--color-background);
-  color: var(--color-primary);
+  background: var(--ocean-bg);
+  color: var(--ocean-text);
 }
 
 body {
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Layout */
+.app-shell {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 280px 1fr;
+  grid-template-areas:
+    "header header"
+    "sidebar main";
+  min-height: 100dvh;
+  background: var(--ocean-bg);
+}
+
+.header {
+  grid-area: header;
+  backdrop-filter: blur(8px);
+  background: color-mix(in oklab, var(--ocean-surface) 85%, transparent);
+  border-bottom: 1px solid var(--ocean-border);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  background: var(--ocean-surface);
+  border-right: 1px solid var(--ocean-border);
+}
+
+.main {
+  grid-area: main;
+  background: var(--ocean-bg);
+}
+
+/* Cards & Surfaces */
+.surface {
+  background: var(--ocean-surface);
+  border: 1px solid var(--ocean-border);
+  border-radius: 14px;
+  box-shadow: var(--ocean-shadow);
+}
+
+/* Interactions */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 10px;
+  padding: 0.5rem 0.8rem;
+  font-weight: 500;
+  transition: all 180ms ease;
+  border: 1px solid transparent;
+  user-select: none;
+}
+
+.btn-primary {
+  background: var(--ocean-primary);
+  color: white;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
+}
+.btn-primary:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+.btn-outline {
+  background: white;
+  color: var(--ocean-text);
+  border-color: var(--ocean-border);
+}
+.btn-outline:hover {
+  border-color: var(--ocean-primary-500);
+  color: var(--ocean-primary);
+}
+
+/* Inputs */
+.input {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--ocean-border);
+  padding: 0.6rem 0.75rem;
+  background: white;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+.input:focus {
+  outline: none;
+  border-color: var(--ocean-primary-500);
+  box-shadow: 0 0 0 4px rgba(59,130,246,0.15);
+}
+
+/* Lists */
+.list-item {
+  border-radius: 12px;
+  padding: 0.6rem 0.75rem;
+  transition: background-color 160ms ease, transform 120ms ease, border-color 160ms ease;
+  border: 1px solid transparent;
+}
+.list-item:hover {
+  background: #f3f4f6; /* gray-100 */
+}
+.list-item.active {
+  background: #eff6ff; /* blue-50 */
+  border-color: #bfdbfe; /* blue-200 */
+}
+
+/* Editor */
+.editor-title {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  font-weight: 600;
+  outline: none;
+  padding: 0.25rem 0;
+}
+
+.editor-textarea {
+  width: 100%;
+  min-height: 50vh;
+  border: none;
+  outline: none;
+  resize: vertical;
+  font: inherit;
+  background: transparent;
+  padding: 0.25rem 0;
+}
+
+/* Utilities */
+.muted { color: var(--ocean-muted); }
+.badge {
+  background: #eef2ff;
+  color: #3730a3;
+  border: 1px solid #c7d2fe;
+  padding: 0.125rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+}
+
+/* Simple toast */
+.toast {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  background: var(--ocean-text);
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  box-shadow: var(--ocean-shadow);
+  z-index: 50;
+  animation: toast-in 180ms ease;
+}
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
